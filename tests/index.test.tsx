@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { Tble } from "../index";
+import {DATA1, COLUMNS1} from './test_helper';
 
 describe("Tble", () => {
   it("creates a table with no data", () => {
@@ -12,11 +13,13 @@ describe("Tble", () => {
   it("creates a table with data", () => {
     const component = render(
       <Tble
-        data={[{ id: 1 }, { id: 2 }]}
-        columns={[{ id: { render: () => <div>d</div> } }]}
+        data={DATA1}
+        columns={COLUMNS1}
       />
     );
 
     expect(component).not.toBeUndefined();
+
+    component.debug();
   });
 });

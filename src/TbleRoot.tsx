@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import Pagination from "./Pagination";
 import Table from "./Table";
-
-interface TbleProps {
-  data: Array<Record<string, any>>;
-  columns: Array<Record<string, any>>;
-  paginate?: boolean;
-  resultsPerPage?: number;
-}
+import { TbleProps } from "../interfaces";
 
 // Tble has
 // 1. Table -> Just draws the table with the data and column specs
@@ -15,8 +9,8 @@ interface TbleProps {
 // 3. Pagination -> Takes number of pages and creates a ui that says this is the page i want.
 
 const TbleRoot: React.FC<TbleProps> = ({
-  data,
-  columns,
+  data = [],
+  columns = {},
   paginate = false,
   resultsPerPage = 20,
 }) => {
@@ -24,7 +18,7 @@ const TbleRoot: React.FC<TbleProps> = ({
 
   return (
     <>
-      <Table data={[]} columns={{}} />
+      <Table data={data} columns={columns} />
       {paginate && (
         <Pagination onPageUpdated={(pageNumber) => console.log(pageNumber)} />
       )}
