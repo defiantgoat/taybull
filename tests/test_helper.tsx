@@ -40,7 +40,9 @@ export const COLUMNS1 = {
     title: "Website",
     field: "homepage",
     render: (rowData: any) => (
-      <a href={rowData["homepage"]}>{rowData["company_name"]}</a>
+      <a style={{ backgroundColor: "blue" }} href={rowData["homepage"]}>
+        {rowData["company_name"]}
+      </a>
     ),
   },
 };

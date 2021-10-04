@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --config jest.config.json",
     "format": "yarn prettier --write .",
-    "deploy": "rm -rf dist && tsc"
+    "deploy": "rm -rf dist && tsc && cp ./README.md ./dist/README.md && cp ./LICENSE ./dist/LICENSE"
   },
   "devDependencies": {
     "@testing-library/react": "^10.4.3",
@@ -22,9 +22,11 @@
     "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }

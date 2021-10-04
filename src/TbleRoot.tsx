@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import Pagination from "./Pagination";
 import Table from "./Table";
+import DataManager from "./DataManager";
 import { TbleProps } from "../interfaces";
-
-// Tble has
-// 1. Table -> Just draws the table with the data and column specs
-// 2. DataManager -> takes in filters and spits out data array
-// 3. Pagination -> Takes number of pages and creates a ui that says this is the page i want.
+import {reducer, initStore} from "./store";
 
 const TbleRoot: React.FC<TbleProps> = ({
   data = [],
   columns = {},
   paginate = false,
   resultsPerPage = 20,
+  className = "",
 }) => {
-  // Decides on number of pages
+  const [state, dispatch] = useReducer(reducer, data, initStore);
 
   return (
-    <>
-      <Table data={data} columns={columns} />
-      {paginate && (
-        <Pagination onPageUpdated={(pageNumber) => console.log(pageNumber)} />
-      )}
-    </>
+    <div className={className}>
+      <DataManager>
+        <Table data={state.filteredData} columns={columns} />
+        {paginate && (
+          <Pagination onPageUpdated={(pageNumber) => console.log(pageNumber)} />
+        )}
+      </DataManager>
+    </div>
   );
 };
 
