@@ -15,13 +15,15 @@ const TbleRoot: React.FC<TbleProps> = ({
   const [state, dispatch] = useReducer(reducer, data, initStore);
 
   return (
-    <div className={className}>
-      <DataManager>
+    <div className={`tble${className > "" ? " "+className : ""}`}>
+      <div className="tble_container">
         <Table data={state.filteredData} columns={columns} />
-        {paginate && (
+      </div>
+      {paginate && (
+        <div className="tble_pagination_container">
           <Pagination onPageUpdated={(pageNumber) => console.log(pageNumber)} />
-        )}
-      </DataManager>
+        </div>
+      )}
     </div>
   );
 };
