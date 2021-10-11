@@ -4,13 +4,15 @@ const initialState: State = {
   rawData: [],
   filteredData: [],
   pageLookup: {},
+  currentPage: 1
 };
 
 export const initStore = (data: Data): State => {
   return {
     rawData: data,
     filteredData: data,
-    pageLookup: { 1: [0, data.length - 1] },
+    pageLookup: {  },
+    currentPage: 1
   };
 };
 
@@ -26,6 +28,11 @@ export const reducer: Reducer = (state, action) => {
       return {
         ...state,
         filteredData: payload,
+      };
+    case "UPDATE_PAGE_LOOKUP": 
+      return {
+        ...state,
+        pageLookup: payload
       };
     default:
       return initialState;

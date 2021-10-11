@@ -17,6 +17,7 @@ export interface State {
   rawData: Data;
   filteredData: Data;
   pageLookup: Record<number, number[]>;
+  currentPage: number;
 }
 
 export interface Action {
