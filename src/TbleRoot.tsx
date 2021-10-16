@@ -48,7 +48,7 @@ const TbleRoot: React.FC<TbleProps> = ({
       </div>
       {paginate && (
         <div className="tble_pagination_container">
-          <Pagination pages={state.pageLookup} onPageUpdated={filterData} />
+          <Pagination pages={state.pageLookup} onPageRequested={filterData} />
         </div>
       )}
     </div>
