@@ -5,7 +5,7 @@ import { DATA1, COLUMNS1 } from "./test_helper";
 
 describe("Tble", () => {
   it("creates a table with no data", () => {
-    const component = render(<Tble data={[]} columns={[]} />);
+    const component = render(<Tble data={[]} columns={{}} />);
 
     expect(component).not.toBeUndefined();
   });
@@ -16,7 +16,5 @@ describe("Tble", () => {
     );
 
     expect(component).not.toBeUndefined();
-
-    component.debug();
   });
 });

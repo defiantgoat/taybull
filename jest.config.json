@@ -7,5 +7,5 @@
   "moduleFileExtensions": ["ts", "tsx", "js", "json"],
   "collectCoverage": true,
   "coverageDirectory": "./coverage",
-  "collectCoverageFrom": ["src/**/*.(ts|js)", "!src/tests/*", "!src/types/**/*", "index.ts"]
+  "collectCoverageFrom": ["src/**/*.(ts|js|tsx)", "!src/tests/*", "!src/types/**/*", "index.ts"]
 }

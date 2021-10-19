@@ -46,3 +46,36 @@ export const COLUMNS1 = {
     ),
   },
 };
+
+export const seedTableData = (numberOfRows: number): Array<Record<string,any>> => {
+  const data: Array<Record<string,any>>  = [];
+
+  for (let i = 0; i < numberOfRows; i++) {
+    data.push({
+      id: i,
+      company_name: `Company ${i}`,
+      profits: Math.random() * 100000,
+      homepage: "http:://random.random"
+    });
+  }
+  
+  return data;
+};
+
+export const seedPageLookup = (numberOfRows: number, resultsPerPage = 20): Record<number, number[]> => {
+  const pageLookup = {};
+  const numPages = Math.ceil(numberOfRows / resultsPerPage);
+
+  for (let x = 0; x < numPages; x++) {
+    const start = x * resultsPerPage;
+    let end = start + resultsPerPage - 1;
+
+    if (x === (numPages - 1)) {
+      end = numberOfRows - 1;
+    }
+
+    pageLookup[x+1] = [start, end];
+  };
+
+  return pageLookup;
+}

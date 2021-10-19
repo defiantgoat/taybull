@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import Pagination from "./Pagination";
 import Table from "./Table";
-import DataManager from "./DataManager";
 import { TbleProps } from "../interfaces";
 import {reducer, initStore} from "./store";
 
@@ -17,6 +16,12 @@ const TbleRoot: React.FC<TbleProps> = ({
   useEffect(() => {
     const pageLookup = {};
     const numPages = Math.ceil(data.length / resultsPerPage);
+
+    if (data.length < 1) {
+      dispatch({type: "UPDATE_PAGE_LOOKUP", payload: pageLookup});
+      dispatch({type: "SET_DATA", payload: []});
+      return;
+    }
 
     for (let x = 0; x < numPages; x++) {
       const start = x * resultsPerPage;
@@ -46,7 +51,7 @@ const TbleRoot: React.FC<TbleProps> = ({
       <div className="tble_container">
         <Table data={state.filteredData} columns={columns} />
       </div>
-      {paginate && (
+      {paginate && state.filteredData.length > 0 && (
         <div className="tble_pagination_container">
           <Pagination pages={state.pageLookup} onPageRequested={filterData} />
         </div>
