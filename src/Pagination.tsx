@@ -12,7 +12,7 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [startPage, setStartPage] = useState(1);
   const [endPage, setEndPage] = useState(-1);
-  const [currentButtonRange, setCurrentButtonRange] = useState([1,-1]);
+  const [currentButtonRange, setCurrentButtonRange] = useState([1, -1]);
 
   const handlePageRequest = (page: string) => {
     const pageInt = pageStrToInt(page);
@@ -42,7 +42,7 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
 
     const newPageNumber = currentPage + step;
     const [curStart, curEnd] = currentButtonRange;
-    
+
     // Do nothing if the page is in the current range.
     if (newPageNumber >= curStart && newPageNumber <= curEnd) {
       return;
@@ -64,7 +64,7 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
     const newPageNumber = currentPage - step;
     const [curStart, curEnd] = currentButtonRange;
 
-    // Do nothing if you have 
+    // Do nothing if you have
     if (keys.length <= MAX_PAGE_BUTTONS) {
       return;
     }
@@ -88,8 +88,8 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
   useEffect(() => {
     const keys = Object.keys(pages);
     const start = pageStrToInt(keys[0]);
-    const end = pageStrToInt(keys[keys.length-1]);
-    
+    const end = pageStrToInt(keys[keys.length - 1]);
+
     setStartPage(start);
     setEndPage(end);
     setCurrentPage(1);
@@ -99,7 +99,6 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
     } else {
       setCurrentButtonRange([1, MAX_PAGE_BUTTONS]);
     }
-
   }, [pages]);
 
   const renderPageButtons = (): JSX.Element[] => {
@@ -115,67 +114,69 @@ const Pagination: React.FC<PaginationProps> = ({ onPageRequested, pages }) => {
         >
           {x}
         </button>
-      )
+      );
     }
 
     return buttons;
   };
 
-  return (<>
-    {
-      endPage > MAX_PAGE_BUTTONS && 
-      <>
-        <button
-          data-testid="tble-pagination-express-decrease"
-          onClick={() => {
-            handlePageRequest(`${currentButtonRange[0] - MAX_PAGE_BUTTONS}`);
-            handleButtonRangeDecrease(MAX_PAGE_BUTTONS);
-          }}
-          disabled={currentPage === 1}
-        >
-          {"<<"}
-        </button>
-        <button
-          data-testid="tble-pagination-decrease-by-one"
-          onClick={() => {
-            handlePageRequest(`${currentPage - 1}`);
-            handleButtonRangeDecrease(1);
-          }}
-          disabled={currentPage === 1}
-        >
-          {"<"}
-        </button>
-      </>
-    }
-    {
-      renderPageButtons()
-    }
-    {
-      endPage > MAX_PAGE_BUTTONS && 
-      <>
-        <button
-          data-testid="tble-pagination-increase-by-one"
-          onClick={() => {
-            handlePageRequest(`${currentPage + 1}`);
-            handleButtonRangeIncrease(1);
-          }}
-          disabled={currentPage === endPage}   
-        >
-          {">"}
-        </button>
-        <button
+  return (
+    <>
+      {endPage > MAX_PAGE_BUTTONS && (
+        <>
+          <button
+            data-testid="tble-pagination-express-decrease"
+            onClick={() => {
+              handlePageRequest(`${currentButtonRange[0] - MAX_PAGE_BUTTONS}`);
+              handleButtonRangeDecrease(MAX_PAGE_BUTTONS);
+            }}
+            disabled={currentPage === 1}
+          >
+            {"<<"}
+          </button>
+          <button
+            data-testid="tble-pagination-decrease-by-one"
+            onClick={() => {
+              handlePageRequest(`${currentPage - 1}`);
+              handleButtonRangeDecrease(1);
+            }}
+            disabled={currentPage === 1}
+          >
+            {"<"}
+          </button>
+        </>
+      )}
+      {renderPageButtons()}
+      {endPage > MAX_PAGE_BUTTONS && (
+        <>
+          <button
+            data-testid="tble-pagination-increase-by-one"
+            onClick={() => {
+              handlePageRequest(`${currentPage + 1}`);
+              handleButtonRangeIncrease(1);
+            }}
+            disabled={currentPage === endPage}
+          >
+            {">"}
+          </button>
+          <button
             data-testid="tble-pagination-express-increase"
             onClick={() => {
               handlePageRequest(`${currentButtonRange[0] + MAX_PAGE_BUTTONS}`);
               handleButtonRangeIncrease(MAX_PAGE_BUTTONS);
             }}
-            disabled={currentPage === endPage || (currentButtonRange[1] - currentButtonRange[0] < MAX_PAGE_BUTTONS - 1)}    
-        >
-          {">>"}
-        </button>
-      </>
-    }
-  </>);
+            disabled={
+              currentPage === endPage ||
+              currentButtonRange[1] - currentButtonRange[0] <
+                MAX_PAGE_BUTTONS - 1
+            }
+          >
+            {">>"}
+          </button>
+        </>
+      )}
+    </>
+  );
 };
 
 export default Pagination;

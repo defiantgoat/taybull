@@ -11,6 +11,7 @@ export interface TbleProps {
 export interface TableProps {
   data: Array<Record<string, any>>;
   columns: Record<string, any>;
+  onSort: (arg0: string, arg1: string) => void;
 }
 
 export interface State {

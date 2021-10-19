@@ -1,14 +1,23 @@
 import React from "react";
-import {TableProps} from "../interfaces";
+import { TableProps } from "../interfaces";
 
-const Table: React.FC<TableProps> = ({ data, columns }) => {
+const Table: React.FC<TableProps> = ({ data, columns, onSort }) => {
   return (
     <>
       <table>
         <thead>
           <tr>
             {Object.values(columns).map((column) => {
-              return <th key={`th-${column["field"]}`}>{column["title"]}</th>;
+              const {field, title, sortable} = column;
+              return (
+                <th
+                  key={`th-${field}`}
+                  onClick={(e) => sortable && onSort(field, 'asc')}
+                >
+                  {sortable && "v"}
+                  {title}
+                </th>
+              );
             })}
           </tr>
         </thead>

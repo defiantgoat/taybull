@@ -8,8 +8,10 @@ const pageRequestMock = jest.fn();
 describe("Pagination", () => {
   it("creates pagination with less than 10 pages", () => {
     const lookup = seedPageLookup(55, 20);
-    const {getByTestId, getByText} = render(<Pagination pages={lookup} onPageRequested={pageRequestMock} />);
-    
+    const { getByTestId, getByText } = render(
+      <Pagination pages={lookup} onPageRequested={pageRequestMock} />
+    );
+
     try {
       getByTestId("tble-pagination-express-increase");
     } catch (e) {
@@ -32,14 +34,16 @@ describe("Pagination", () => {
   it("creates pagination with more than 10 pages", () => {
     const lookup = seedPageLookup(661, 20);
     expect(Object.keys(lookup).length).toEqual(34);
-    
-    const {getByTestId} = render(<Pagination pages={lookup} onPageRequested={pageRequestMock} />);
+
+    const { getByTestId } = render(
+      <Pagination pages={lookup} onPageRequested={pageRequestMock} />
+    );
 
     const expressIncreaseBtn = getByTestId("tble-pagination-express-increase");
     const increaseByOneBtn = getByTestId("tble-pagination-increase-by-one");
     const expressDecreaseBtn = getByTestId("tble-pagination-express-decrease");
     const decreaseByOneBtn = getByTestId("tble-pagination-decrease-by-one");
-    
+
     act(() => {
       fireEvent.click(increaseByOneBtn);
       expect(pageRequestMock).toHaveBeenLastCalledWith("2");
@@ -87,5 +91,4 @@ describe("Pagination", () => {
       expect(pageRequestMock).toHaveBeenLastCalledWith("1");
     });
   });
-
 });

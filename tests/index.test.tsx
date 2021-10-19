@@ -12,7 +12,12 @@ describe("Tble", () => {
 
   it("creates a table with data", () => {
     const component = render(
-      <Tble data={DATA1} columns={COLUMNS1} className="my-table wd100" paginate={true} />
+      <Tble
+        data={DATA1}
+        columns={COLUMNS1}
+        className="my-table wd100"
+        paginate={true}
+      />
     );
 
     expect(component).not.toBeUndefined();
