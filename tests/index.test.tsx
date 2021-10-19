@@ -16,5 +16,6 @@ describe("Tble", () => {
     );
 
     expect(component).not.toBeUndefined();
+    component.debug();
   });
 });

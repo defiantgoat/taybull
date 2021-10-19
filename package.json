@@ -7,7 +7,7 @@
   "author": "Jayson Ward <defiantgoat@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --config jest.config.json",
+    "test": "rm -rf coverage && jest --runInBand --detectOpenHandles --config jest.config.json",
     "format": "yarn prettier --write .",
     "deploy": "rm -rf dist && tsc && cp ./README.md ./dist/README.md && cp ./LICENSE ./dist/LICENSE"
   },
