@@ -30,11 +30,13 @@ export const COLUMNS1 = {
     title: "Company Name",
     field: "company_name",
     render: (rowData: any) => <p>{rowData["company_name"]}</p>,
+    sortable: true
   },
   profits: {
     title: "Profits",
     field: "profits",
     render: (rowData: any) => <p>{`$${rowData["profits"]}`}</p>,
+    sortable: true
   },
   homepage: {
     title: "Website",
@@ -44,6 +46,7 @@ export const COLUMNS1 = {
         {rowData["company_name"]}
       </a>
     ),
+    sortable: true
   },
 };
 

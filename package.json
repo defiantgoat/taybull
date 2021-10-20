@@ -1,6 +1,6 @@
 {
   "name": "tble",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React Based Table with Client Side Pagination",
   "main": "dist/index.js",
   "repository": "https://github.com/defiantgoat/tble.git",

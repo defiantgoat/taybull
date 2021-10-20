@@ -1,5 +1,7 @@
 export type Data = Array<Record<string, any>>;
 
+export type SortDirection = "ASC" | "DESC" | "NONE"
+
 export interface TbleProps {
   data: Data;
   columns: Record<string, any>;
@@ -11,6 +13,9 @@ export interface TbleProps {
 export interface TableProps {
   data: Array<Record<string, any>>;
   columns: Record<string, any>;
+  range: number[];
+  sort: [string, SortDirection];
+  dispatch: any;
 }
 
 export interface State {
@@ -18,6 +23,8 @@ export interface State {
   filteredData: Data;
   pageLookup: Record<number, number[]>;
   currentPage: number;
+  currentRange: number[];
+  sort: [string, SortDirection]
 }
 
 export interface Action {
