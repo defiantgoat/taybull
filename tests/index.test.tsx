@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, act} from "@testing-library/react";
+import { render, fireEvent, act } from "@testing-library/react";
 import { Tble } from "../index";
 import { DATA1, COLUMNS1 } from "./test_helper";
 
@@ -10,9 +10,14 @@ describe("Tble", () => {
     expect(component).not.toBeUndefined();
   });
 
-  it("creates a table with data", async() => {
-    const {container, findAllByText, debug } = render(
-      <Tble data={DATA1} columns={COLUMNS1} className="my-table wd100" paginate={true} />
+  it("creates a table with data", async () => {
+    const { container, findAllByText, debug } = render(
+      <Tble
+        data={DATA1}
+        columns={COLUMNS1}
+        className="my-table wd100"
+        paginate={true}
+      />
     );
 
     expect(container).not.toBeUndefined();
@@ -27,22 +32,19 @@ describe("Tble", () => {
     debug();
 
     const [descButton] = await findAllByText("D");
-    
+
     act(() => {
       fireEvent.click(descButton);
     });
 
     debug();
 
-
     const [ascButton] = await findAllByText("A");
-    
+
     act(() => {
       fireEvent.click(ascButton);
     });
 
-
     debug();
-
   });
 });

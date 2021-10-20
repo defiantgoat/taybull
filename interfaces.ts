@@ -1,6 +1,6 @@
 export type Data = Array<Record<string, any>>;
 
-export type SortDirection = "ASC" | "DESC" | "NONE"
+export type SortDirection = "ASC" | "DESC" | "NONE";
 
 export interface TbleProps {
   data: Data;
@@ -24,11 +24,12 @@ export interface State {
   pageLookup: Record<number, number[]>;
   currentPage: number;
   currentRange: number[];
-  sort: [string, SortDirection]
+  sort: [string, SortDirection];
 }
 
 export interface Action {
   type: string;
   payload: any;
 }
+
 export type Reducer = (state: State, action: Action) => State;

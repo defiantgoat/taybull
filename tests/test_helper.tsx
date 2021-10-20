@@ -30,13 +30,13 @@ export const COLUMNS1 = {
     title: "Company Name",
     field: "company_name",
     render: (rowData: any) => <p>{rowData["company_name"]}</p>,
-    sortable: true
+    sortable: true,
   },
   profits: {
     title: "Profits",
     field: "profits",
     render: (rowData: any) => <p>{`$${rowData["profits"]}`}</p>,
-    sortable: true
+    sortable: true,
   },
   homepage: {
     title: "Website",
@@ -46,26 +46,31 @@ export const COLUMNS1 = {
         {rowData["company_name"]}
       </a>
     ),
-    sortable: true
+    sortable: true,
   },
 };
 
-export const seedTableData = (numberOfRows: number): Array<Record<string,any>> => {
-  const data: Array<Record<string,any>>  = [];
+export const seedTableData = (
+  numberOfRows: number
+): Array<Record<string, any>> => {
+  const data: Array<Record<string, any>> = [];
 
   for (let i = 0; i < numberOfRows; i++) {
     data.push({
       id: i,
       company_name: `Company ${i}`,
       profits: Math.random() * 100000,
-      homepage: "http:://random.random"
+      homepage: "http:://random.random",
     });
   }
-  
+
   return data;
 };
 
-export const seedPageLookup = (numberOfRows: number, resultsPerPage = 20): Record<number, number[]> => {
+export const seedPageLookup = (
+  numberOfRows: number,
+  resultsPerPage = 20
+): Record<number, number[]> => {
   const pageLookup = {};
   const numPages = Math.ceil(numberOfRows / resultsPerPage);
 
@@ -73,12 +78,12 @@ export const seedPageLookup = (numberOfRows: number, resultsPerPage = 20): Recor
     const start = x * resultsPerPage;
     let end = start + resultsPerPage - 1;
 
-    if (x === (numPages - 1)) {
+    if (x === numPages - 1) {
       end = numberOfRows - 1;
     }
 
-    pageLookup[x+1] = [start, end];
-  };
+    pageLookup[x + 1] = [start, end];
+  }
 
   return pageLookup;
-}
+};

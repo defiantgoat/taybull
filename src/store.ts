@@ -6,15 +6,13 @@ export const ACTIONS = {
   UPDATE_PAGE_LOOKUP: "UPDATE_PAGE_LOOKUP",
   SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
   SET_SORT_FIELD: "SET_SORT_FIELD",
-  SET_COLUMNS: "SET_COLUMNS",
-  UPDATE_COLUMN_SORT: "UPDATE_COLUMN_SORT",
-  SET_CURRENT_RANGE: "SET_CURRENT_RANGE"
-}
+  SET_CURRENT_RANGE: "SET_CURRENT_RANGE",
+};
 
-export const SORT_DIRECTIONS: Record<string, SortDirection>  = {
+export const SORT_DIRECTIONS: Record<string, SortDirection> = {
   ASC: "ASC",
   DESC: "DESC",
-  NONE: "NONE"
+  NONE: "NONE",
 };
 
 const initialState: State = {
@@ -23,7 +21,7 @@ const initialState: State = {
   pageLookup: {},
   currentPage: 1,
   currentRange: [0, -1],
-  sort: ["", SORT_DIRECTIONS.NONE]
+  sort: ["", SORT_DIRECTIONS.NONE],
 };
 
 export const initStore = (data: Data): State => {
@@ -33,7 +31,7 @@ export const initStore = (data: Data): State => {
     pageLookup: {},
     currentPage: 1,
     currentRange: [0, -1],
-    sort: ["", SORT_DIRECTIONS.NONE]
+    sort: ["", SORT_DIRECTIONS.NONE],
   };
 };
 
@@ -50,28 +48,28 @@ export const reducer: Reducer = (state, action) => {
         ...state,
         filteredData: payload,
       };
-    case ACTIONS.UPDATE_PAGE_LOOKUP: 
+    case ACTIONS.UPDATE_PAGE_LOOKUP:
       return {
         ...state,
-        pageLookup: payload
+        pageLookup: payload,
       };
     case ACTIONS.SET_CURRENT_PAGE:
       return {
         ...state,
-        currentPage: payload
+        currentPage: payload,
       };
-    case ACTIONS.SET_CURRENT_RANGE: 
+    case ACTIONS.SET_CURRENT_RANGE:
       return {
         ...state,
-        currentRange: payload
+        currentRange: payload,
       };
     case ACTIONS.SET_SORT_FIELD:
-      let {field} = payload;
+      let { field } = payload;
       const [curField, curDir] = state.sort;
       const sort = [field, SORT_DIRECTIONS.DESC] as [string, SortDirection];
       if (field == curField) {
         switch (curDir) {
-          case SORT_DIRECTIONS.NONE: 
+          case SORT_DIRECTIONS.NONE:
             sort[1] = SORT_DIRECTIONS.DESC;
             break;
           case SORT_DIRECTIONS.DESC:
@@ -82,10 +80,10 @@ export const reducer: Reducer = (state, action) => {
             sort[1] = SORT_DIRECTIONS.NONE;
             break;
         }
-      } 
+      }
       return {
         ...state,
-        sort
+        sort,
       };
     default:
       return initialState;

@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import Pagination from "./Pagination";
 import Table from "./Table";
 import { TbleProps } from "../interfaces";
-import {reducer, initStore, ACTIONS, SORT_DIRECTIONS} from "./store";
+import { reducer, initStore, ACTIONS, SORT_DIRECTIONS } from "./store";
 
 const TbleRoot: React.FC<TbleProps> = ({
   data = [],
@@ -18,13 +18,15 @@ const TbleRoot: React.FC<TbleProps> = ({
     const numPages = Math.ceil(data.length / resultsPerPage);
 
     if (data.length < 1) {
-      // dispatch({type: ACTIONS.UPDATE_PAGE_LOOKUP, payload: pageLookup});
-      // dispatch({type: ACTIONS.SET_DATA, payload: []});
       return;
     }
 
     if (!paginate) {
-      dispatch({type: ACTIONS.SET_CURRENT_RANGE, payload: [0, data.length]});
+      dispatch({ type: ACTIONS.SET_CURRENT_RANGE, payload: [0, data.length] });
+      dispatch({
+        type: ACTIONS.SET_SORT_FIELD,
+        payload: ["", SORT_DIRECTIONS.NONE],
+      });
       return;
     }
 
@@ -32,26 +34,29 @@ const TbleRoot: React.FC<TbleProps> = ({
       const start = x * resultsPerPage;
       let end = start + resultsPerPage - 1;
 
-      if (x === (numPages - 1)) {
+      if (x === numPages - 1) {
         end = data.length - 1;
       }
 
-      pageLookup[x+1] = [start, end];
-    };
+      pageLookup[x + 1] = [start, end];
+    }
 
     const [start, end] = pageLookup["1"];
 
-    dispatch({type: ACTIONS.UPDATE_PAGE_LOOKUP, payload: pageLookup});
-    dispatch({type: ACTIONS.SET_DATA, payload: data});
-    dispatch({type: ACTIONS.SET_CURRENT_RANGE, payload: [start, end]});
-    dispatch({type: ACTIONS.SET_SORT_FIELD, payload: ["", SORT_DIRECTIONS.NONE]});
+    dispatch({ type: ACTIONS.UPDATE_PAGE_LOOKUP, payload: pageLookup });
+    dispatch({ type: ACTIONS.SET_DATA, payload: data });
+    dispatch({ type: ACTIONS.SET_CURRENT_RANGE, payload: [start, end] });
+    dispatch({
+      type: ACTIONS.SET_SORT_FIELD,
+      payload: ["", SORT_DIRECTIONS.NONE],
+    });
   }, [data, paginate, resultsPerPage, columns]);
 
   useEffect(() => {
     const [field, direction] = state.sort;
-    
+
     if (direction === SORT_DIRECTIONS.NONE) {
-      dispatch({type: ACTIONS.SET_DATA, payload: data});
+      dispatch({ type: ACTIONS.SET_DATA, payload: data });
       return;
     }
 
@@ -61,22 +66,32 @@ const TbleRoot: React.FC<TbleProps> = ({
       }
       return a[field] - b[field];
     });
-    dispatch({type: ACTIONS.SET_DATA, payload: sortedData});
-}, [state.sort]);
+
+    dispatch({ type: ACTIONS.SET_DATA, payload: sortedData });
+  }, [state.sort]);
 
   const getDataForPage = (page: string) => {
     const [start, end] = state.pageLookup[page];
-    dispatch({type: ACTIONS.SET_CURRENT_RANGE, payload: [start, end]});
+    dispatch({ type: ACTIONS.SET_CURRENT_RANGE, payload: [start, end] });
   };
 
   return (
-    <div className={`tble${className > "" ? " "+className : ""}`}>
+    <div className={`tble${className > "" ? " " + className : ""}`}>
       <div className="tble_container">
-        <Table data={state.filteredData} columns={columns} range={state.currentRange} sort={state.sort} dispatch={dispatch} />
+        <Table
+          data={state.filteredData}
+          columns={columns}
+          range={state.currentRange}
+          sort={state.sort}
+          dispatch={dispatch}
+        />
       </div>
       {paginate && state.filteredData.length > 0 && (
         <div className="tble_pagination_container">
-          <Pagination pages={state.pageLookup} onPageRequested={getDataForPage} />
+          <Pagination
+            pages={state.pageLookup}
+            onPageRequested={getDataForPage}
+          />
         </div>
       )}
     </div>
